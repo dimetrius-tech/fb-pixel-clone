@@ -77,8 +77,5 @@ jobs:
       - name: Build Assets
         run: npm run build
 
-      - name: Run queue
-        run: php artisan queue:work --tries=3 --timeout=90 --env=testing --force
-
       - name: Tests
         run: ./vendor/bin/phpunit
