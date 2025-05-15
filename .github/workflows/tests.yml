@@ -72,7 +72,7 @@ jobs:
         run: php artisan key:generate --env=testing --force
 
       - name: Publish Ziggy Configuration
-        run: php artisan ziggy:generate --force
+        run: php artisan ziggy:generate
 
       - name: Build Assets
         run: npm run build
