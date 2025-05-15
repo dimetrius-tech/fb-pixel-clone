@@ -3,8 +3,8 @@ import { ref, onMounted, computed } from 'vue';
 import { Bar } from 'vue-chartjs'
 import { BarElement, CategoryScale, Chart as ChartJS, Legend, LinearScale, Title, Tooltip } from 'chart.js';
 import AppLayout from '@/layouts/AppLayout.vue';
-import { BreadcrumbItem } from '@/types/index.js';
 import { Head } from '@inertiajs/vue3';
+import { BreadcrumbItem } from '@/types';
 
 const {userActivitiesCount} = defineProps<{
     userActivitiesCount: [];
