@@ -45,6 +45,10 @@ Run Queues
 ```
 ./vendor/bin/sail artisan queue:work
 ```
+In new terminal window
+```
+./vendor/bin/sail artisan reverb:start
+```
 For horizon (if you're using it):
 ```
 ./vendor/bin/sail artisan horizon
