@@ -2,25 +2,47 @@
 
 namespace App\Http\Controllers;
 
-use App\Events\PageViewed;
 use App\Services\PageViewService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redis;
+use Inertia\Inertia;
+use Jenssegers\Agent\Agent;
 
 class PixelController extends Controller
 {
+    protected PageViewService $pageViewService;
+    protected Agent $agent;
+    public function __construct(PageViewService $pageViewService)
+    {
+        $this->pageViewService = $pageViewService;
+        $this->agent = new Agent();
+    }
+
+    public function show()
+    {
+        $userActivitiesCount = $this->pageViewService->getStatisctics();
+        return Inertia::render('PixelStatistic', [
+            'userActivitiesCount' => $userActivitiesCount,
+        ]);
+    }
     public function track(Request $request)
     {
-        $data = $request->only(['url', 'referrer', 'viewed_at']);
-
-        broadcast(new PageViewed(...array_values($data)));
-
-        if($data['referrer'] === 'visit') {
-            Redis::sadd('track_visit', json_encode($data));
-        } else {
-            Redis::sadd('track_subscribe', json_encode($data));
+        try {
+            $this->agent->setUserAgent($request->userAgent());
+            $data = [
+                'browser' => $this->agent->browser(),
+                'os' => $this->agent->platform(),
+                'ip' => $request->ip(),
+                'url' => $request->headers->get('referer'),
+                'referrer' => $request->headers->get('referer'),
+            ];
+            $this->pageViewService->trackPageView($data);
+            $gif = base64_decode('R0lGODlhAQABAPAAAP///wAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==');
+            return response($gif, 200)
+                ->header('Content-Type', 'image/gif')
+                ->header('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0')
+                ->header('Pragma', 'no-cache');
+        } catch (\Exception $e) {
+            throw $e;
         }
-
-        return response()->json(['status' => 'tracked']);
     }
 }

@@ -13,6 +13,7 @@ withDefaults(defineProps<Props>(), {
 
 <template>
     <AppLayout :breadcrumbs="breadcrumbs">
+        <img :src="'/track/pixel.gif'" style="display: none;" width="1" height="1" />
         <slot />
     </AppLayout>
 </template>
