@@ -43,7 +43,6 @@ onMounted(() => {
             console.error('Echo error:', error);
         })
         .listen('.PageViewed', (event) => {
-            console.log(event);
             views.value.push(event.pageView);
         });
 })

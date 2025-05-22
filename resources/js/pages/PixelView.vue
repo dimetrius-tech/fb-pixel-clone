@@ -17,7 +17,6 @@ const form = useForm({
     viewed_at: new Date().toISOString().slice(0, 19).replace('T', ' '),
 });
 const submit = () => {
-
 };
 </script>
 
