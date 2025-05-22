@@ -2,7 +2,6 @@
 import { Head, useForm } from '@inertiajs/vue3';
 import AppLayout from '@/layouts/AppLayout.vue';
 import { BreadcrumbItem } from '@/types';
-import { onMounted } from 'vue';
 import { LoaderCircle } from 'lucide-vue-next';
 import { Button } from '@/components/ui/button';
 
@@ -12,24 +11,12 @@ const breadcrumbItems: BreadcrumbItem[] = [
         href: '/pixel-view',
     }
 ]
-onMounted(() => {
-    fetch("/api/track", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-            url: window.location.href,
-            referrer: 'visit',
-            viewed_at: new Date().toISOString().slice(0, 19).replace('T', ' '),
-        })
-    });
-})
 const form = useForm({
     url: window.location.href,
     referrer: 'submit',
     viewed_at: new Date().toISOString().slice(0, 19).replace('T', ' '),
 });
 const submit = () => {
-    form.post(route('track'));
 };
 </script>
 

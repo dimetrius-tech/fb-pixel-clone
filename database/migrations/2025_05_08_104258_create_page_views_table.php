@@ -13,9 +13,12 @@ return new class extends Migration
     {
         Schema::create('page_views', function (Blueprint $table) {
             $table->id();
+            $table->uuid();
             $table->string('url');
+            $table->string('ip');
+            $table->string('browser');
+            $table->string('os');
             $table->string('referrer')->nullable();
-            $table->timestamp('viewed_at');
             $table->timestamps();
 
         });

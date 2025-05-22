@@ -19,6 +19,11 @@ const mainNavItems: NavItem[] = [
         href: '/pixel-view',
         icon: LayoutGrid,
     },
+    {
+        title: 'Pixel Stats',
+        href: '/pixel-statistic',
+        icon: LayoutGrid,
+    },
 ];
 
 const footerNavItems: NavItem[] = [

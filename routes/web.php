@@ -1,6 +1,6 @@
 <?php
 
-use Illuminate\Support\Facades\Redis;
+use App\Http\Controllers\PixelController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -8,13 +8,18 @@ Route::get('/', function () {
     return Inertia::render('Welcome');
 })->name('home');
 
+Route::get('/pixel-statistic', [PixelController::class, 'show'])
+    ->middleware(['auth', 'verified'])
+    ->name('pixel-statistic');
+
 Route::get('/pixel-view', function () {
     return Inertia::render('PixelView');
 })->name('pixel-view');
 
+Route::get('/track/pixel.gif', [PixelController::class, 'track']);
+
 Route::get('dashboard', function () {
-    $data = array_map(fn($item) => json_decode($item, true), array_merge(Redis::smembers('track_visit'), Redis::smembers('track_subscribe')));
-    return Inertia::render('Dashboard', ['userActivitiesCount' => $data]);
+    return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 

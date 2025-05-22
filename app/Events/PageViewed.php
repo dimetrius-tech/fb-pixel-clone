@@ -2,6 +2,7 @@
 
 namespace App\Events;
 
+use App\Models\PageView;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
@@ -13,18 +14,14 @@ class PageViewed implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public string $url;
-    public string $viewed_at;
-    public string $referrer;
+    public PageView $pageView;
 
     /**
      * Create a new event instance.
      */
-    public function __construct($url, $referrer, $view_at)
+    public function __construct(PageView $pageView)
     {
-        $this->url = $url;
-        $this->referrer = $referrer;
-        $this->viewed_at = $view_at;
+        $this->pageView = $pageView;
     }
 
     public function broadcastOn(): Channel
