@@ -18,6 +18,7 @@ class PageViewRepository
             'ip' => $data['ip'],
             'url' => $data['url'],
             'referrer' => $data['referrer'],
+            'user_id' => $data['user_id'],
         ]);
     }
 }
