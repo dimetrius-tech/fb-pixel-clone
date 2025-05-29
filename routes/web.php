@@ -16,7 +16,8 @@ Route::get('/pixel-view', function () {
     return Inertia::render('PixelView');
 })->name('pixel-view');
 
-Route::get('/track/pixel.gif', [PixelController::class, 'track']);
+Route::get('/track/pixel.gif', [PixelController::class, 'trackLocal']);
+Route::get('/track-remote/pixel.gif', [PixelController::class, 'trackRemote']);
 
 Route::get('dashboard', function () {
     return Inertia::render('Dashboard');
